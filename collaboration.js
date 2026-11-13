@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, serverTimestamp, FieldPath, deleteField } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -107,7 +107,7 @@ async function removeMember(uid) {
   await updateDoc(tripRef, new FieldPath("members", uid), deleteField());
 }
 
-$("signInButton").addEventListener("click", () => signInWithRedirect(auth, provider));
+$("signInButton").addEventListener("click", () => signInWithPopup(auth, provider));
 $("signOutButton").addEventListener("click", () => signOut(auth));
 $("membersButton").addEventListener("click", () => { $("memberPanel").hidden = !$("memberPanel").hidden; });
 $("inviteButton").addEventListener("click", () => inviteMember().catch(error => { setStatus("Could not invite that user ID"); console.error(error); }));
